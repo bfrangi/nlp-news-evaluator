@@ -1,0 +1,19 @@
+footer {
+  display: flex;
+  justify-content: center;
+  padding: 10px 40px;
+  background-color: rgb(48, 48, 48);
+  font-family: "Courier New", Courier, monospace;
+  color: white;
+  
+  a {
+    color: white;
+
+    &:hover,
+    &:active,
+    &:visited,
+    &:link {
+      color: white;
+    }
+  }
+}

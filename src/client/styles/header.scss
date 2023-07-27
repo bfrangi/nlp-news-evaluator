@@ -2,4 +2,29 @@ header {
   display: flex;
   justify-content: space-between;
   padding: 10px 40px;
+  background-color: rgb(48, 48, 48);
+  font-family: "Courier New", Courier, monospace;
+
+  .logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+  }
+
+  .navigation {
+    a {
+      font-size: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      color: white;
+
+      &:hover,
+      &:active,
+      &:visited,
+      &:link {
+        text-decoration: none;
+        color: white;
+      }
+    }
+  }
 }

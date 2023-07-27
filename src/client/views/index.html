@@ -2,17 +2,21 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
-    <title>Test</title>
+    <title>News Article Evaluator</title>
   </head>
 
   <body>
     <header>
-      <div class="">Logo</div>
-      <div class="">navigation</div>
+      <div class="logo">News Article Evaluator</div>
+      <div class="navigation">
+        <a href="https://github.com/bfrangi/nlp-news-evaluator">GitHub Repo</a>
+      </div>
     </header>
 
     <main>
       <section>
+        <h1>Evaluate a news article</h1>
+        <p>Enter a keyword and a language, then submit the form:</p>
         <form class="" onsubmit="return Client.handleSubmit(event)">
           <input
             id="title"
@@ -49,13 +53,15 @@
 
       <section>
         <strong>Form Results:</strong>
+        <hr />
         <div id="query-params"></div>
+        <hr />
         <div id="results"></div>
       </section>
     </main>
 
     <footer>
-      <p>This is a footer</p>
+      <p>Made with love by <a href="https://github.com/bfrangi">@bfrangi</a></p>
     </footer>
   </body>
 </html>
