@@ -14,19 +14,6 @@ var app_key = defaultClient.authentications["app_key"];
 app_key.apiKey = process.env.API_KEY;
 var api = new AylienNewsApi.DefaultApi();
 
-// Define callback function for API call
-var callback = function (error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log("API called successfully. Returned data: ");
-    console.log("========================================");
-    for (var i = 0; i < data.stories.length; i++) {
-      console.log(data.stories[i].title + " / " + data.stories[i].source.name);
-    }
-  }
-};
-
 // Create express instance
 const app = express();
 
@@ -47,7 +34,7 @@ app.get("/test", function (req, res) {
   console.log("GET /test");
   console.log("    Query:", req.query);
   var opts = {
-    title: req.query.title,
+    body: req.query.text,
     language: [req.query.language],
     publishedAtStart: "NOW-7DAYS",
     publishedAtEnd: "NOW",
@@ -58,14 +45,19 @@ app.get("/test", function (req, res) {
       res.send({ error: error })
     } else {
       const story = data.stories[0];
-      const title = story.title;
-      const sentiment = story.sentiment.body.polarity;
-      const link = story.links.permalink;
-      let summary = "";
-      for (var i = 0; i < story.summary.sentences.length; i++) {
-        summary += " " + story.summary.sentences[i];
+      let story_list = [];
+      for (let story of data.stories) {
+        const title = story.title;
+        const sentiment = story.sentiment.body.polarity;
+        const link = story.links.permalink;
+        let summary = "";
+        for (var i = 0; i < story.summary.sentences.length; i++) {
+          summary += " " + story.summary.sentences[i];
+        }
+        story_list.push({ title: title, sentiment: sentiment, link: link, summary: summary })
+
       }
-      res.send({ title: title, sentiment: sentiment, link: link, summary: summary })
+      res.send({stories: story_list})
     }
   });
 });
