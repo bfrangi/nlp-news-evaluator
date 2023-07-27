@@ -11,7 +11,7 @@ Forked from https://github.com/udacity/fend/tree/refresh-2019/projects/evaluate-
 
 2. Install the dependencies:
    ```bash
-   CD nlp-news-evaluator
+   cd nlp-news-evaluator
    npm install
    ```
 
@@ -37,3 +37,10 @@ Forked from https://github.com/udacity/fend/tree/refresh-2019/projects/evaluate-
    ```bash
    npm run build-dev
    ```
+
+## Run tests
+
+You can run the tests with:
+```bash
+npm run test
+```
