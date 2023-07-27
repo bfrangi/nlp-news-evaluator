@@ -1,10 +1,10 @@
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 dotenv.config();
 
-var path = require('path')
-const express = require('express')
+var path = require("path");
+const express = require("express");
 var AylienNewsApi = require("aylien-news-api");
-const mockAPIResponse = require('./mockAPI.js')
+const mockAPIResponse = require("./mockAPI.js");
 
 // Configure Alyien API
 var defaultClient = AylienNewsApi.ApiClient.instance;
@@ -14,15 +14,8 @@ var app_key = defaultClient.authentications["app_key"];
 app_key.apiKey = process.env.API_KEY;
 var api = new AylienNewsApi.DefaultApi();
 
-// Configure API call parameters
-var opts = {
-  title: "startup",
-  publishedAtStart: "NOW-7DAYS",
-  publishedAtEnd: "NOW"
-};
-
 // Define callback function for API call
-var callback = function(error, data, response) {
+var callback = function (error, data, response) {
   if (error) {
     console.error(error);
   } else {
@@ -35,22 +28,50 @@ var callback = function(error, data, response) {
 };
 
 // Create express instance
-const app = express()
+const app = express();
+
+// Cors for cross origin allowance
+const cors = require("cors");
+app.use(cors());
 
 // Set up static folder to serve
-app.use(express.static('dist'))
+app.use(express.static("dist"));
 
 // Configure routes
-app.get('/', function (req, res) {
-    res.sendFile('dist/index.html')
-})
+app.get("/", function (req, res) {
+  console.log("GET /");
+  res.sendFile("dist/index.html");
+});
 
-// designates what port the app will listen to for incoming requests
-app.listen(8080, function () {
-    console.log('Example app listening on port 8080!')
-})
+app.get("/test", function (req, res) {
+  console.log("GET /test");
+  console.log("    Query:", req.query);
+  var opts = {
+    title: req.query.title,
+    language: [req.query.language],
+    publishedAtStart: "NOW-7DAYS",
+    publishedAtEnd: "NOW",
+  };
+  api.listStories(opts, (error, data, response) => {
+    if (error) {
+      console.error(error);
+      res.send({ error: error })
+    } else {
+      const story = data.stories[0];
+      const title = story.title;
+      const sentiment = story.sentiment.body.polarity;
+      const link = story.links.permalink;
+      let summary = "";
+      for (var i = 0; i < story.summary.sentences.length; i++) {
+        summary += " " + story.summary.sentences[i];
+      }
+      res.send({ title: title, sentiment: sentiment, link: link, summary: summary })
+    }
+  });
+});
 
-app.get('/test', function (req, res) {
-    console.log(api.listStories(opts, callback));
-    res.send(mockAPIResponse)
-})
+// Start server
+const port = 8081;
+app.listen(port, function () {
+  console.log("Example app listening on port", port);
+});
