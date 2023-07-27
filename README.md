@@ -2,6 +2,27 @@
 
 Forked from https://github.com/udacity/fend/tree/refresh-2019/projects/evaluate-news-nlp
 
+# Install the project
+
+1. Clone the project:
+   ```bash
+   git clone https://github.com/bfrangi/nlp-news-evaluator.git
+   ```
+
+2. Install the dependencies:
+   ```bash
+   CD nlp-news-evaluator
+   npm install
+   ```
+
+3. Add Aylien API keys to a `.env` folder in the root of the project. The file should look like this:
+   ```
+   API_ID=**************************
+   API_KEY=**************************
+   ``` 
+
+# Run the project
+
 # Project Instructions
 
 This repo is your starter code for the project. It is the same as the starter code we began with in lesson 2. Install and configure Webpack just as we did in the course. Feel free to refer to the course repo as you build this one, and remember to make frequent commits and to create and merge branches as necessary!
