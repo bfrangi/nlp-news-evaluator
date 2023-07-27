@@ -1,4 +1,4 @@
-import { checkForName } from './js/nameChecker'
+import { checkTitleLength } from './js/titleChecker'
 import { handleSubmit } from './js/formHandler'
 
 import './styles/resets.scss'
@@ -9,6 +9,6 @@ import './styles/header.scss'
 
 
 export {
-    checkForName,
+    checkTitleLength,
     handleSubmit
 }
